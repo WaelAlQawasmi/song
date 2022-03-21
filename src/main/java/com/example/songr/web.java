@@ -1,11 +1,13 @@
 package com.example.songr;
 
+import com.example.songr.Repositoryes.AlbumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.text.AttributedString;
 
@@ -18,6 +20,8 @@ public class web {
      return "hello";
 
  }
+@Autowired
+    AlbumRepository AlbumRepository;
 
     @GetMapping("/capitalize/{word}")
     String capitalize(@PathVariable String word) {
@@ -43,5 +47,27 @@ System.out.println(albums[1]);
         model.addAttribute("data2",album2);
         model.addAttribute("data3",album3);
         return "albums";
+    }
+
+
+    @GetMapping("/addnewalbum")
+    public  String adding(){
+
+        return "addingform";
+
+    }
+
+    @PostMapping("/addalbum")
+    public RedirectView added(@ModelAttribute Album newAlbum){
+        AlbumRepository.save(newAlbum);
+        return new RedirectView("/dbalbum");
+
+    }
+
+    @GetMapping("/dbalbum")
+    public  String dbAlbumes(Model albu){
+albu.addAttribute("allAlbums",AlbumRepository.findAll());
+        return "dbalbum";
+
     }
 }

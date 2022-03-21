@@ -1,6 +1,14 @@
 package com.example.songr;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Album {
+    @Id
+    @GeneratedValue
+    private  int id;
     private   String title;
     private   String artist;
     private   int songCount;
@@ -49,6 +57,11 @@ public class Album {
         this.imageUrl = imageUrl;
     }
 //////////////////////////
+
+    public Album() {
+
+    }
+
     public Album(String title, String artist, int songCount, int length, String imageUrl) {
         this.title = title;
         this.artist = artist;
