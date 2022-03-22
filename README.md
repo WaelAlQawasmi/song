@@ -1,12 +1,41 @@
-# Spring-app
+# Multi task Spring boot
+ in this app  we have  album class  for reflect it to bd table
+ and test class web class for deal with this rute functions
+## The hello world  task 
+> /hello
 
-/hello, and ensure that you can visit that route in your browser and see a rendered template come back.
-Create a route that turns words into UPPER CASE. For instance, 
-I should be able to visit /capitalize/hello and get back
-an HTML page containing the response HELLO, or I could 
-visit /capitalize/this is Kinda Capitalized and get an HTML page containing the response THIS IS KINDA CAPITALIZED.
-Create a basic splash page for the Songr app, available at the root route, and style it appropriately with CSS.
-Create an Album class to act as a model in our app.
-An Album has a title, an artist, a songCount, a length (in seconds), and an imageUrl that is a link to that album’s art.
-Create a route at /albums that shows three album instances. (These will be hardcoded for today’s lab; create an array that contains three albums, and then display those three on the page.)
-# song
+you can access  to the task after you run the app by using 
+
+ 
+this function add clore style to the text in html page by link
+the page with style page using spring boot
+
+## To capitalize task 
+ this route that turns words into UPPER CASE response 
+ >/capitalize/the word or statement
+
+
+## Adding album
+> /addnewalbum 
+
+This route for adding album to the db of spring boot app
+after adding the album the response is  adding to db then 
+return the rout of db 
+
+
+## DB of the app
+> /dbalbum
+
+in this route  the response is the html page contain the db as cards 
+
+### The property of APP
+- the port of the app 8080
+- the DBMS of the app postgres
+- you must create db name album
+- the url of db jdbc:postgresql://localhost:5432/album
+
+
+
+
+
+
