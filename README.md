@@ -34,7 +34,16 @@ in this route  the response is the html page contain the db as cards
 - you must create db name album
 - the url of db jdbc:postgresql://localhost:5432/album
 
+---
+## add song
+you can add song afer tou add albume , so tou can go indes then add albume and after that you can
+add song 
 
+## song detalis 
+you must go to the albume of the song and from that you can see it
+
+## db song
+you can go to all db song by click on db song
 
 
 

@@ -6,6 +6,14 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" >
 </head>
 <body>
+<nav class="nav nav-pills flex-column flex-sm-row">
+    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/addnewalbum">ADDING</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/dbalbum">DB albume</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/dballsongs">DB song</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/hello">Helow word</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/capitalize/abcdefg">capitalize</a>
+
+</nav>
 <p th:text="${word.toUpperCase()}"></p>
 </body>
 </html>
