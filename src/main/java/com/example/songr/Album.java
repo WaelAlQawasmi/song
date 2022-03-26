@@ -1,66 +1,39 @@
 package com.example.songr;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
+import java.util.Set;
 
-@Entity
+
+@Setter// use to create setter for all attribute
+@Getter// use to create getter for all attribute
+@NoArgsConstructor // to create deflate constructor ( constactor with out any args)
+
+@Entity // to crate table for this class
 public class Album {
+
     @Id
     @GeneratedValue
-    private  int id;
+    private  Long id;
     private   String title;
     private   String artist;
     private   int songCount;
     private   int length ;
     private   String imageUrl ;
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getArtist() {
-        return artist;
-    }
-
-    public int getSongCount() {
-        return songCount;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    ////////////////////////
-
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public void setSongCount(int songCount) {
-        this.songCount = songCount;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 //////////////////////////
 
-    public Album() {
 
-    }
 
     public Album(String title, String artist, int songCount, int length, String imageUrl) {
         this.title = title;
@@ -69,6 +42,13 @@ public class Album {
         this.length = length;
         this.imageUrl = imageUrl;
     }
+
+
+
+
+    @OneToMany(mappedBy = "album")
+    private List<Song> Songs;
+
 
     @Override
     public String toString() {

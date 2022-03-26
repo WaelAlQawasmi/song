@@ -15,28 +15,50 @@
 
 
 
-
 <nav class="nav nav-pills flex-column flex-sm-row">
     <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/addnewalbum">ADDING</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/dbalbum">DB</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/dbalbum">DB albume</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/dballsongs">DB song</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="/hello">Helow word</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="/capitalize/abcdefg">capitalize</a>
+
 </nav>
-<div class="container" th:each="alb:${allAlbums}">
+<div class="container" >
 
 
 
 
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;" th:each="alb:${allAlbums}">
         <img  alt="..." th:src="${alb.imageUrl}">
         <div class="card-body">
             <h5 class="card-title" th:text="${alb.title}"></h5>
             <p class="card-text">About album:</p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:text="${alb.artist}"></li>
-            <li class="list-group-item" th:text="${alb.songCount}"></li>
-            <li class="list-group-item" th:text="${alb.length}"></li>
+            <li class="list-group-item" th:text="'artist: '+${alb.artist}"></li>
+            <li class="list-group-item" th:text="${'songCount: '+alb.songCount}"></li>
+            <li class="list-group-item" th:text="${'length: '+alb.length}"></li>
+            <li class="list-group-item" > <a th:href="${'/addsongform/'+alb.id}"> add song</a></li>
+            <li class="list-group-item" > <a th:href="${'/dbalbumsongs/'+alb.id}"> Album songs </a></li>
+        </ul>
+
+    </div>
+
+
+
+
+
+    <div class="card" style="width: 18rem;" th:each="song:${allsong}" >
+
+        <div class="card-body">
+            <h5 class="card-title" th:text="${song.title}"></h5>
+            <p class="card-text">About album:</p>
+        </div>
+        <ul class="list-group list-group-flush">
+
+
+            <li class="list-group-item" th:text="${'length: '+song.length}"></li>
+            <li class="list-group-item" th:text="${'length: '+song.trackNumber}"></li>
 
         </ul>
 
