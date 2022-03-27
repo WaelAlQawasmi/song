@@ -45,11 +45,11 @@ you must go to the albume of the song and from that you can see it
 ## db song
 you can go to all db song by click on db song
 
-#log in , log out  and sign up
+## log in , log out  and sign up
 
 in this rout you can log out and sign up
 
-#post
+## post
 
 after you log in you can add post and see what the ather posted and you can see your post
 
