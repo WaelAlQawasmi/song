@@ -189,13 +189,12 @@ public Song addedSongJson(@RequestBody Song newSong, @PathVariable Long id){
     public  RedirectView login(HttpServletRequest request, String username, String password){
         auth Input=athuRebository.findByusername(username);
         if(Input.getUsername()==null||!BCrypt.checkpw(password, Input.getPassword())){
-System.out.println("NOOOOOOO");
+
             return new RedirectView("/signup") ;
         }
         HttpSession session = request.getSession();
         session.setAttribute("username",username);
 
-        System.out.println("YEEEES");
 
 
         return new RedirectView("/dashboard") ;
