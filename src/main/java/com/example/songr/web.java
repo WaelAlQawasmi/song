@@ -1,7 +1,8 @@
 package com.example.songr;
 
 import com.example.songr.Repositoryes.AlbumRepository;
-import com.example.songr.Repositoryes.songRebository;
+import com.example.songr.Repositoryes.*;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,14 +10,17 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 @Controller// to create mvc
 public class web {
-    public web(com.example.songr.Repositoryes.AlbumRepository albumRepository, com.example.songr.Repositoryes.songRebository songRebository) {
+    public web(com.example.songr.Repositoryes.AlbumRepository albumRepository, com.example.songr.Repositoryes.songRebository songRebository, com.example.songr.Repositoryes.athuRebository athuRebository, com.example.songr.Repositoryes.postRebository postRebository) {
         AlbumRepository = albumRepository;
         this.songRebository = songRebository;
+        this.athuRebository = athuRebository;
+        this.postRebository = postRebository;
     }
 
     @ResponseStatus(value = HttpStatus.OK) // to cheake the resopnse
@@ -29,7 +33,8 @@ public class web {
 
 private final AlbumRepository AlbumRepository;
     private final songRebository songRebository;
-
+    private final athuRebository athuRebository;
+    private final postRebository postRebository;
     @GetMapping("/capitalize/{word}")
     String capitalize(@PathVariable String word) {
 
@@ -167,6 +172,110 @@ public Song addedSongJson(@RequestBody Song newSong, @PathVariable Long id){
 
     }
 
+    ///////////////login/////////////////
 
 
+
+    @GetMapping("/login")   // TO GET all song
+    public  String loginform(){
+
+        return "login";
+
+    }
+
+
+    @PostMapping("/login")   // TO GET all song
+
+    public  RedirectView login(HttpServletRequest request, String username, String password){
+        auth Input=athuRebository.findByusername(username);
+        if(Input.getUsername()==null||!BCrypt.checkpw(password, Input.getPassword())){
+System.out.println("NOOOOOOO");
+            return new RedirectView("/signup") ;
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("username",username);
+
+        System.out.println("YEEEES");
+
+
+        return new RedirectView("/dashboard") ;
+
+    }
+
+///////////////////dash bord
+    @GetMapping("/dashboard")
+    public String getHomepageWithSecret(Model posts,HttpServletRequest request, Model m)
+    {
+
+        HttpSession session = request.getSession();
+        String username = session.getAttribute("username").toString();
+
+        m.addAttribute("username", username);
+auth user=athuRebository.findByusername(username);
+
+        List<post> postsDB=postRebository.findByauth_id(user.getId());
+        posts.addAttribute("allpost",postsDB);
+        return "dash.html";
+    }
+
+
+    ////////////////////sign up
+
+    @GetMapping("/signup")   // TO GET all song
+    public  String signup(){
+
+        return "signup";
+
+    }
+
+    @PostMapping("/signup")   // TO GET all song
+
+    public  RedirectView signup(String username,String password){
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10)); // to hach and sult the pass
+auth user= new auth(username,hashedPassword);
+
+athuRebository.save(user);
+        return new RedirectView("/login") ;
+
+}
+//////////////log out
+
+
+    @PostMapping("/logout")
+    public RedirectView logOut(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return new RedirectView("/login");
+    }
+/////////////add post
+
+
+    @PostMapping("/addpost/{username}")
+    public RedirectView addedPost(@ModelAttribute  post newpost, @PathVariable String username){   // TO ADD FOR DB BY ALBUME ID
+
+        auth user = athuRebository.findByusername(username);
+        newpost.setAuth(user);
+
+        postRebository.save(newpost);
+        return new RedirectView("/dashboard");
+
+    }
+
+
+
+    @PostMapping("/allpost")
+    public String allpost(Model posts,HttpServletRequest request, Model m)
+    {
+
+        HttpSession session = request.getSession();
+        String username = session.getAttribute("username").toString();
+
+
+        m.addAttribute("username", username);
+        List<post> postsDB=postRebository.findAll();
+        posts.addAttribute("allpost",postsDB);
+        return "dash.html";
+    }
 }
