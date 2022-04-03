@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface postRebository extends JpaRepository<post,Long> {
 List<post> findByauth_id(Long id);
+//  عندما يكون العائد لك اكثر من صف و هنا استخدمانها لانه العلاقة مني تو ون لانه يوجد اكثر من بوست لديهم نفس ال authid
 }
