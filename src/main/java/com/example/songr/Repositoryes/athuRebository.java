@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface athuRebository extends JpaRepository<auth,Long> {
 
-   auth findByusername(String username);
+   auth findByusername(String username); // لايجاد الصف حسب العامود username ويكون كالتالي findBy"colum name"( the data)
 
 }
